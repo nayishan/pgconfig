@@ -19,7 +19,7 @@ userBin="${basePath}/pgconfig"
 
 
 pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG")
-osKeyWord=("LD_LIBRARY_PATH" "PATH")
+#osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
 for keyword1 in ${pgKeyWord[@]}
@@ -57,13 +57,14 @@ echo "export KBLOG=${kbLog}" >>${bashrc}
 echo "export PGLOG=${pgLog}" >>${bashrc}
 
 #add oskey
-for keyWord2 in ${osKeyWord[@]}
-do
-    if ! $(grep "^${keyWord2}=" ${bashrc}|grep "\$PGHOME") && ! $(grep " ${keyWord2}=" ${bashrc}|grep "\$PGHOME"); then
-        if [ ${keyWord2} ==  ${osKeyWord[0]} ];then
-            echo "export ${osKeyWord[0]}=\$${osKeyWord[0]}:\${PGHOME}/lib" >>${bashrc}
-        elif [ ${keyWord2} == ${osKeyWord[1]} ];then
-            echo "export ${osKeyWord[1]}=\$${osKeyWord[1]}:\${PGHOME}/bin:${userBin}" >>${bashrc}
-        fi  
-    fi  
-done
+#for keyWord2 in ${osKeyWord[@]}
+#do
+#    if ! $(grep "^${keyWord2}=" ${bashrc}|grep "\$PGHOME") && ! $(grep " ${keyWord2}=" ${bashrc}|grep "\$PGHOME"); then
+#        if [ ${keyWord2} ==  ${osKeyWord[0]} ];then
+#            echo "export ${osKeyWord[0]}=\$${osKeyWord[0]}:\${PGHOME}/lib" >>${bashrc}
+#        elif [ ${keyWord2} == ${osKeyWord[1]} ];then
+#            echo "export ${osKeyWord[1]}=\$${osKeyWord[1]}:\${PGHOME}/bin:${userBin}" >>${bashrc}
+#        fi  
+#    fi  
+#done
+echo "export PATH=$PATH:${userBin}" >>${bashrc}
