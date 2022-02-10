@@ -12,4 +12,4 @@ do
 	systemVar=
 done
 
-initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -W -m oracle ${extra}
+${KBHOME}/bin/initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -W -m oracle ${extra}

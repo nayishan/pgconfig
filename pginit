@@ -12,4 +12,4 @@ do
 	systemVar=
 done
 
-initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W -m oracle ${extra}
+${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W -m oracle ${extra}

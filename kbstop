@@ -1,0 +1,1 @@
+${KBHOME}/bin/pg_ctl -D ${KBDATA} stop

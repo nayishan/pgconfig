@@ -13,4 +13,4 @@ if [ -d $PGHOME ] then
 	echo "no HOME exist"
 	exit 1	
 fi
-pg_ctl -D $PGDATA -l $PGHOME/logfile start
+${PGHOME}/bin/pg_ctl -D $PGDATA -l $PGHOME/logfile start
