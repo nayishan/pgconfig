@@ -9,7 +9,7 @@ do
         fi
 	systemVar=
 done
-if [ -d $PGHOME] then
+if [ -d $PGHOME ] then
 	echo "no HOME exist"
 	exit 1	
 fi

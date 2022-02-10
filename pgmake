@@ -11,43 +11,45 @@ mayExist=("PGHOME" "PGLOG")
 for key in ${all[@]}
 do
 	systemVar=`eval echo '$'"$key"`
-	if [ -z ${systemVar} ];then
+	if [  -z ${systemVar} ];then
 		echo "please run initbashrc first"
 		exit 1
 	fi
 	systemVar=
 done
 
-for must in ${mustExit[@]}
+for must in ${mustExist[@]}
 do
 	systemVar=`eval echo '$'"$must"`
-	if [ ! -d ${systemVar} ]; then
+	if [  ! -d ${systemVar} ]; then
 		echo "no ${must} exist"
 		exit 1
 	fi
 	systemVar=
 done
 
-for may in ${mayExisti[@]}
+for may in ${mayExist[@]}
 do
 	systemVar=`eval echo '$'"$may"`
-	if [! -d ${systemVar} ];then
+	if [ ! -d ${systemVar} ];then
+		echo "mkdir ${systemVar}"
 		mkdir -p ${systemVar}
 	fi
 	systemVar=
 done
 
+set -e
 #configure
 echo "#################################################configure#######################################"
 
-cd ${KBCODE}
-./configure --prefix=${KBHOME} --with-zlib --enable-nls --enable-integer-datetimes --with-openssl --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -DKingbaseES' --with-icu ${extra} |tee ${KBLOG}/configure.out
+cd ${PGCODE}
+./configure --prefix=${PGHOME} --with-zlib --enable-nls --enable-integer-datetimes --with-openssl --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -g' --with-icu ${extra} |tee ${PGLOG}/configure.out
 
 #make
 echo "#################################################make ##########################################"
-make world |tee ${KBLOG}/compile.log
+make world |tee ${PGLOG}/compile.log
 
 #install
 echo "####################################################install#######################################"
-rm -rf ${KBHOME}/*
+rm -rf ${PGHOME}/*
 make install-world

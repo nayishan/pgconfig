@@ -1,6 +1,6 @@
 #!/bin/bash
 basePath=${HOME}
-pgCode="${basePath}/gitCode/postgressql-12.2"
+pgCode="${basePath}/gitCode/postgresql-12.2"
 kbCode="${basePath}/gitCode/postgresql_master"
 
 bashrc="${basePath}/.bashrc"

@@ -18,7 +18,7 @@ do
 	systemVar=
 done
 
-for must in ${mustExit[@]}
+for must in ${mustExist[@]}
 do
 	systemVar=`eval echo '$'"$must"`
 	if [ ! -d ${systemVar} ]; then
@@ -28,15 +28,17 @@ do
 	systemVar=
 done
 
-for may in ${mayExisti[@]}
+for may in ${mayExist[@]}
 do
 	systemVar=`eval echo '$'"$may"`
-	if [! -d ${systemVar} ];then
+	if [ ! -d ${systemVar} ];then
+		echo "mkdir -p ${systemVar}"
 		mkdir -p ${systemVar}
 	fi
 	systemVar=
 done
 
+set -e
 #configure
 echo "#################################################configure#######################################"
 
