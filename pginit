@@ -11,5 +11,9 @@ do
         fi
 	systemVar=
 done
+if [ ! -d $PGHOME ]; then
+        echo "no HOME exist"
+        exit 1
+fi
 
-${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W -m oracle ${extra}
+${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W  ${extra}
