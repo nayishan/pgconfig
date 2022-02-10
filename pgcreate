@@ -1,1 +1,1 @@
-${KBHOME}/bin/createdb
+${PGHOME}/bin/createdb
