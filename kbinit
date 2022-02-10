@@ -1,6 +1,6 @@
 #!/bin/bash
 
-extra = $1
+extra=$1
 all=("KBDATA" "KBUSER")
 for key in ${all[@]}
 do
