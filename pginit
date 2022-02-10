@@ -1,0 +1,15 @@
+#!/bin/bash
+
+extra=$1
+all=("PGDATA" "PGUSER")
+for key in ${all[@]}
+do
+	systemVar=`eval echo '$'"$key"`
+        if [ -z ${systemVar} ];then
+                echo "please run initbashrc first"
+                exit 1
+        fi
+	systemVar=
+done
+
+initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W -m oracle ${extra}

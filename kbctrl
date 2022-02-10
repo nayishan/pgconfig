@@ -1,0 +1,16 @@
+#!/bin/bash
+all=("KBDATA" "KBHOME")
+for key in ${all[@]}
+do
+	systemVar=`eval echo '$'"$key"`
+        if [ -z ${systemVar} ];then
+                echo "please run initbashrc first"
+                exit 1
+        fi
+	systemVar=
+done
+if [ -d $KBHOME] then
+	echo "no HOME exist"
+	exit 1	
+fi
+pg_ctl -D $KBDATA -l $KBHOME/logfile start
