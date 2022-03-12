@@ -54,7 +54,6 @@ local pgKeyword = {
 local function UserBin(fd,line)
 	local count = line:find("PATH%s*=")
 	if(count ~= nil) then
-		print(count)
 		local str = line:gsub(":" .. userBin,"")
 		fd:write(str .. ":" .. userBin .. "\n")
 		return true
@@ -63,7 +62,7 @@ local function UserBin(fd,line)
 	end
 end
 
-local function Copy()
+local function Rebuild()
 	local old,err1 = io.open(rc,"r")
 	if(not old) then
 		print(err1)
@@ -100,25 +99,26 @@ local function BackUp()
 	local ret = os.execute("cp -r " .. rc .." " ..  rcbak)
 	return ret
 end
+
 local function Replace()
 	local ret = os.execute("mv " .. rctmp .. " " .. rc)
-	if not ret then
-		return nil
-	end
-
+	return ret
 end
 
 local function initbashrc()
 	local ret = 0
-	if(nil == BackUp()) then
+	if(false == BackUp()) then
+		print("Back up failed")
 		ret = 1
 		goto exit
 	end
-	if(nil == Copy()) then
+	if(false == Rebuild()) then
+		print("Rebuild failed")
 		ret = 1
 		goto exit
 	end
-	if(nil == Replace())then
+	if(false == Replace())then
+		print("Replace failed")
 		ret = 1
 		goto exit
 	end
