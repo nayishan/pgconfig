@@ -71,4 +71,4 @@ echo "export PATH=$PATH:${userBin}" >>${bashrc}
 
 echo "export GOROOT=/usr/local/go" >>${bashrc}
 echo "export GOPATH=${HOME}/go" >>${bashrc}
-echo "export PATH=${PATH}:$GOROOT/bin:$GOPATH/bin" >>${bashrc}
+echo "export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin" >>${bashrc}
