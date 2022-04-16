@@ -18,7 +18,7 @@ kbLog="${basePath}/log/kb"
 userBin="${basePath}/pgconfig"
 
 
-pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG")
+pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH")
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
@@ -68,3 +68,7 @@ echo "export PGLOG=${pgLog}" >>${bashrc}
 #    fi  
 #done
 echo "export PATH=$PATH:${userBin}" >>${bashrc}
+
+echo "export GOROOT=/usr/local/go" >>${bashrc}
+echo "export GOPATH=${HOME}/go" >>${bashrc}
+echo "export PATH=${PATH}:$GOROOT/bin:$GOPATH/bin" >>${bashrc}
