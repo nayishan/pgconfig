@@ -3,7 +3,17 @@ basePath=${HOME}
 pgCode="${basePath}/gitCode/postgresql-12.2"
 kbCode="${basePath}/gitCode/postgresql_master"
 
-bashrc="${basePath}/.bashrc"
+OS="`uname`"
+case $OS in
+  'Linux')
+    bashrc="${basePath}/.bashrc"
+    ;;
+  'Darwin')
+    bashrc="${basePath}/.zshrc"
+    ;;
+  *) ;;
+esac
+
 
 pgHome="${basePath}/pgrelease"
 kbHome="${basePath}/kbrelease"
