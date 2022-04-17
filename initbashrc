@@ -32,11 +32,24 @@ pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "D
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
-for keyword1 in ${pgKeyWord[@]}
-do
-    sed -i "/^${keyWord1}=/d" ${bashrc}
-    sed -i "/export ${keyWord1}/d" ${bashrc}
-done
+case $OS in
+    'Linux')
+        for keyword1 in ${pgKeyWord[@]}
+        do
+            sed -i "/^${keyWord1}=/d" ${bashrc}
+            sed -i "/export ${keyWord1}/d" ${bashrc}
+        done
+        ;;
+     'Darwin')
+        for keyword1 in ${pgKeyWord[@]}
+        do
+            sed -i "" -e "/^${keyWord1}=/d" ${bashrc}
+            sed -i "" -e "/export ${keyWord1}/d" ${bashrc}
+        done
+        ;;
+    *)
+        ;;
+esac
 
 #add pgkey
 echo "export KBHOME=${kbHome}" >>${bashrc}
@@ -77,7 +90,7 @@ echo "export PGLOG=${pgLog}" >>${bashrc}
 #        fi  
 #    fi  
 #done
-echo "export PATH=$PATH:${userBin}" >>${bashrc}
+echo "export PATH=\${PATH}:${userBin}" >>${bashrc}
 
 echo "export GOROOT=/usr/local/go" >>${bashrc}
 echo "export GOPATH=\${HOME}/gitCode/go" >>${bashrc}
