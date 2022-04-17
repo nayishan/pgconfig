@@ -82,3 +82,9 @@ echo "export PATH=$PATH:${userBin}" >>${bashrc}
 echo "export GOROOT=/usr/local/go" >>${bashrc}
 echo "export GOPATH=${HOME}/gitCode/go" >>${bashrc}
 echo "export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin" >>${bashrc}
+
+# 设置使用代理
+#alias setproxy="export https_proxy=http://localhost:8118; export http_proxy=http://localhost:8118; export all_proxy=socks5://localhost:8119; echo 'Set proxy successfully'"
+# 设置取消使用代理
+#alias unsetproxy="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'"
+
