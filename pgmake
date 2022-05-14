@@ -43,7 +43,11 @@ set -e
 echo "#################################################configure#######################################"
 
 cd ${PGCODE}
-./configure --prefix=${PGHOME} --with-zlib --enable-nls --enable-integer-datetimes --with-openssl --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -g' --with-icu ${extra} |tee ${PGLOG}/configure.out
+if [ "$(uname)" == "Darwin" ]; then
+	CFLAGS='-arch x86_64' LDFLAGS='-arch x86_64'  ./configure --prefix=${PGHOME}  --enable-debug --with-libs=/usr/local/lib --with-includes=/usr/local/include |tee ${PGLOG}/configure.out
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+	./configure --prefix=${PGHOME} --with-zlib --enable-nls --enable-integer-datetimes --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -g' ${extra} |tee ${PGLOG}/configure.out
+fi
 
 #make
 echo "#################################################make ##########################################"

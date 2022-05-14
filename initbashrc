@@ -28,7 +28,7 @@ kbLog="${basePath}/log/kb"
 userBin="${basePath}/pgconfig"
 
 
-pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH")
+pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH" "GO111MODULE")
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
@@ -95,6 +95,7 @@ echo "export PATH=\${PATH}:${userBin}" >>${bashrc}
 echo "export GOROOT=/usr/local/go" >>${bashrc}
 echo "export GOPATH=\${HOME}/gitCode/go" >>${bashrc}
 echo "export PATH=\${PATH}:\${GOROOT}/bin:\${GOPATH}/bin" >>${bashrc}
+echo "export GO111MODULE=on"
 
 # 设置使用代理
 #alias setproxy="export https_proxy=http://localhost:8118; export http_proxy=http://localhost:8118; export all_proxy=socks5://localhost:8119; echo 'Set proxy successfully'"
