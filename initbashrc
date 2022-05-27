@@ -28,7 +28,7 @@ kbLog="${basePath}/log/kb"
 userBin="${basePath}/pgconfig"
 
 
-pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH" "GO111MODULE")
+pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH" "GO111MODULE" "setproxy" "unsetproxy" "ls" "mycloud")
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
@@ -38,6 +38,7 @@ case $OS in
         do
             sed -i "/^${keyWord1}=/d" ${bashrc}
             sed -i "/export ${keyWord1}/d" ${bashrc}
+            sed -i "/alias ${keyWord1}/d" ${bashrc}
         done
         ;;
      'Darwin')
@@ -45,6 +46,7 @@ case $OS in
         do
             sed -i "" -e "/^${keyWord1}=/d" ${bashrc}
             sed -i "" -e "/export ${keyWord1}/d" ${bashrc}
+            sed -i "" -e "/alias ${keyWord1}/d" ${bashrc}
         done
         ;;
     *)
@@ -95,10 +97,18 @@ echo "export PATH=\${PATH}:${userBin}" >>${bashrc}
 echo "export GOROOT=/usr/local/go" >>${bashrc}
 echo "export GOPATH=\${HOME}/gitCode/go" >>${bashrc}
 echo "export PATH=\${PATH}:\${GOROOT}/bin:\${GOPATH}/bin" >>${bashrc}
-echo "export GO111MODULE=on"
+echo "export GO111MODULE=on" >>${bashrc}
 
 # 设置使用代理
+echo "alias setproxy=\"export https_proxy=http://localhost:8118; export http_proxy=http://localhost:8118; export all_proxy=socks5://localhost:8119; echo 'Set proxy successfully'\"" >>${bashrc}
+
 #alias setproxy="export https_proxy=http://localhost:8118; export http_proxy=http://localhost:8118; export all_proxy=socks5://localhost:8119; echo 'Set proxy successfully'"
 # 设置取消使用代理
+echo "alias unsetproxy=\"unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'\"" >>${bashrc}
 #alias unsetproxy="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Unset proxy successfully'"
 
+echo "alias ls='ls --color'" >>${bashrc}
+echo "alias mycloud=\"ssh 101.43.191.88\"" >>${bashrc}
+
+
+#eval "$(lua ${HOME}/config/z.lua/z.lua --init zsh)"
