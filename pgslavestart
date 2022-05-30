@@ -1,0 +1,3 @@
+#!/bin/bash
+
+${PGSLAVEHOME}/bin/pg_ctl -l $PGSLAVEHOME/logfile -D ${PGSLAVEDATA} -o "-F -p ${PGSLAVEPORT}" start

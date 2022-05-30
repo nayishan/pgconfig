@@ -1,1 +1,2 @@
-${KBHOME}/bin/psql -h localhost
+#!/bin/bash
+${KBHOME}/bin/psql -h localhost -p ${KBPORT}

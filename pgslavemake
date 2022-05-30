@@ -2,16 +2,16 @@
 extra=${1}
 #check bashrc
 
-all=("PGCODE" "PGHOME" "PGLOG")
+all=("PGCODE" "PGSLAVEHOME" "PGLOG")
 
 mustExist=( "PGCODE" )
 
-mayExist=("PGHOME" "PGLOG")
+mayExist=("PGSLAVEHOME" "PGLOG")
 
 for key in ${all[@]}
 do
 	systemVar=`eval echo '$'"$key"`
-	if [  -z ${systemVar} ];then
+	if [ -z ${systemVar} ];then
 		echo "please run initbashrc first"
 		exit 1
 	fi
@@ -21,7 +21,7 @@ done
 for must in ${mustExist[@]}
 do
 	systemVar=`eval echo '$'"$must"`
-	if [  ! -d ${systemVar} ]; then
+	if [ ! -d ${systemVar} ]; then
 		echo "no ${must} exist"
 		exit 1
 	fi
@@ -32,7 +32,7 @@ for may in ${mayExist[@]}
 do
 	systemVar=`eval echo '$'"$may"`
 	if [ ! -d ${systemVar} ];then
-		echo "mkdir ${systemVar}"
+		echo "mkdir -p ${systemVar}"
 		mkdir -p ${systemVar}
 	fi
 	systemVar=
@@ -44,26 +44,16 @@ echo "#################################################configure################
 
 cd ${PGCODE}
 if [ "$(uname)" == "Darwin" ]; then
-	CFLAGS='-arch x86_64' LDFLAGS='-arch x86_64'  ./configure --prefix=${PGHOME}  --enable-debug --with-libs=/usr/local/lib --with-includes=/usr/local/include |tee ${PGLOG}/configure.out
+	CFLAGS='-arch x86_64' LDFLAGS='-arch x86_64'  ./configure --prefix=${PGSLAVEHOME}  --enable-debug --with-libs=/usr/local/lib --with-includes=/usr/local/include |tee ${PGLOG}/configure.out
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-	./configure --prefix=${PGHOME} --with-zlib --enable-nls --enable-integer-datetimes --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -g' ${extra} |tee ${PGLOG}/configure.out
+	./configure --prefix=${PGSLAVEHOME} --with-zlib --enable-nls --enable-integer-datetimes --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -g' ${extra} |tee ${PGLOG}/configure.out
 fi
 
 #make
 echo "#################################################make ##########################################"
-# if [ "$(uname)" == "Darwin" ]; then
-# 	make |tee ${PGLOG}/compile.log
-# elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-# 	make world |tee ${PGLOG}/compile.log
-# fi
-make world
+make world |tee ${PGLOG}/compile.log
 
 #install
 echo "####################################################install#######################################"
-rm -rf ${PGHOME}/*
-# if [ "$(uname)" == "Darwin" ]; then
-# 	make install
-# elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-# 	make install-world
-# fi
+rm -rf ${PGSLAVEHOME}/*
 make install-world

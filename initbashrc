@@ -17,6 +17,9 @@ esac
 
 pgHome="${basePath}/pgrelease"
 kbHome="${basePath}/kbrelease"
+pgSlaveHome="${basePath}/pgslave"
+kbSlaveHome="${basePath}/kbslave"
+
 
 pgUser=$(whoami)
 kbUser=$(whoami)
@@ -28,7 +31,10 @@ kbLog="${basePath}/log/kb"
 userBin="${basePath}/pgconfig"
 
 
-pgKeyWord=("KBHOME" "PGHOME" "KBDATA" "PGDATA" "KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "KBHOST" "PGHOST" "KBUSER" "PGUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "GOROOT" "GOPATH" "GO111MODULE" "setproxy" "unsetproxy" "ls" "mycloud")
+pgKeyWord=("KBHOME" "PGHOME" "PGSLAVEHOME" "KBSLAVEHOME" "KBDATA" "PGDATA" "PGSLAVEDATA" "KBSLAVEDATA"\
+		"KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "PGSLAVEPORT" "KBSLAVEPORT"\
+		"KBHOST" "PGHOST" "PGSLAVEHOST" "KBSLAVEHOST" "KBUSER" "PGUSER" "REPLICATIONUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG"\
+		"GOROOT" "GOPATH" "GO111MODULE" "setproxy" "unsetproxy" "ls" "mycloud")
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
 #delete
@@ -56,9 +62,13 @@ esac
 #add pgkey
 echo "export KBHOME=${kbHome}" >>${bashrc}
 echo "export PGHOME=${pgHome}" >>${bashrc}
+echo "export PGSLAVEHOME=${pgSlaveHome}" >>${bashrc}
+echo "export KBSLAVEHOME=${kbSlaveHome}" >>${bashrc}
 
 echo "export KBDATA=\${KBHOME}/data" >>${bashrc}
 echo "export PGDATA=\${PGHOME}/data" >>${bashrc}
+echo "export PGSLAVEDATA=\${PGSLAVEHOME}/data" >>${bashrc}
+echo "export KBSLAVEDATA=\${KBSLAVEHOME}/data" >>${bashrc}
 
 echo "export KBMANPATH=\${KBHOME}/share/man" >>${bashrc}
 echo "export PGMANPATH=\${PGHOME}/share/man" >>${bashrc}
@@ -68,12 +78,17 @@ echo "export DATE=\`date +\"%Y-%m-%d%H:%M:%S\"\`" >>${bashrc}
 
 echo "export KBPORT=34533" >>${bashrc}
 echo "export PGPORT=34532" >>${bashrc}
+echo "export PGSLAVEPORT=35959" >>${bashrc}
+echo "export KBSLAVEPORT=35958" >>${bashrc}
 
 echo "export KBHOST=localhost" >>${bashrc}
 echo "export PGHOST=localhost" >>${bashrc}
+echo "export PGSLAVEHOST=localhost" >>${bashrc}
+echo "export KBSLAVEHOST=localhost" >>${bashrc}
 
 echo "export KBUSER=${kbUser}" >>${bashrc}
 echo "export PGUSER=${pgUser}" >>${bashrc}
+echo "export REPLICATIONUSER=data_backup" >>${bashrc}
 
 echo "export KBCODE=${kbCode}" >> ${bashrc}
 echo "export PGCODE=${pgCode}" >>${bashrc}

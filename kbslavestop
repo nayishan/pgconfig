@@ -1,0 +1,3 @@
+#!/bin/bash
+
+${KBSLAVEHOME}/bin/pg_ctl -D ${KBSLAVEDATA} -o "-F -p ${KBSLAVEPORT}" stop

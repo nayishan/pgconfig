@@ -1,0 +1,3 @@
+#!/bin/bash
+
+${PGSLAVEHOME}/bin/psql -p ${PGSLAVEPORT}

@@ -1,1 +1,2 @@
-${KBHOME}/bin/pg_ctl -D ${KBDATA} stop
+#!/bin/bash
+${KBHOME}/bin/pg_ctl -D ${KBDATA} -o "-F -p ${KBPORT}" stop

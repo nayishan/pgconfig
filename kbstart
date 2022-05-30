@@ -13,4 +13,4 @@ if [ ! -d $KBHOME ]; then
 	echo "no HOME exist"
 	exit 1	
 fi
-${KBHOME}/bin/pg_ctl -D $KBDATA -l $KBHOME/logfile start
+${KBHOME}/bin/pg_ctl -D $KBDATA -l $KBHOME/logfile -o "-F -p ${KBPORT}" start

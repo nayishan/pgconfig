@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+${PGSLAVEHOME}/bin/pg_basebackup -h ${PGHOST} -p ${PGPORT} -U ${REPLICATIONUSER} -F p -X stream -P -R -D ${PGSLAVEDATA}
+
+CONF=${PGSLAVEHOME}/data/postgresql.conf
+cp ${PGSLAVEHOME}/data/postgresql.auto.conf ${PGSLAVEHOME}/data/postgresql.conf
+# set log open
+echo "logging_collector = on">>${CONF}
+echo "log_directory = 'log'" >>${CONF}
+#modify configure
+echo "hot_standby=on" >>${CONF}
+echo "max_standby_streaming_delay=30s">>${CONF}
+echo "wal_receiver_status_interval=10s" >>${CONF}
+echo "hot_standby_feedback=on" >>${CONF}
+echo "max_connections=1000" >>${CONF}
+
+#add max_prepared_transactions
+echo "max_prepared_transactions=10" >>${CONF}
+
+# #create recovery.signal
+# RECOVERY=${PGSLAVEHOME}/data/recovery.signal
+# touch ${RECOVERY}
+# echo "recovery_target_timeline = 'latest'" >>${RECOVERY}
+# echo "primary_conninfo = 'host=10.0.23.199 port=5432 user=${REPLICATIONUSER} password=123456'" >>${RECOVERY}
+#
+# #create standby.signal
+# STANDBY=${PGSLAVEHOME}/data/standby.signal
+# echo "standby_mode = on" >> ${STANDBY}

@@ -1,1 +1,2 @@
-${PGHOME}/bin/pg_ctl -D ${PGDATA} stop
+#!/bin/bash
+${PGHOME}/bin/pg_ctl -D ${PGDATA} -o "-F -p ${PGPORT}" stop

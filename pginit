@@ -17,3 +17,23 @@ if [ ! -d $PGHOME ]; then
 fi
 
 ${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W  ${extra}
+
+# set log open
+CONF=${PGDATA}/postgresql.conf
+echo "logging_collector = on">>${CONF}
+echo "log_directory = 'log'" >>${CONF}
+
+
+#添加master参数
+echo "listen_addresses='localhost'" >> ${CONF}
+echo "wal_level=replica" >>${CONF}
+echo "max_wal_senders=2" >>${CONF}
+#echo "wal_keep_segments=64" >>${CONF}
+echo "max_connections=500" >>${CONF}
+
+#add prepared
+echo "max_prepared_transactions=10" >>${CONF}
+
+#添加hba参数
+HBA=${PGDATA}/pg_hba.conf
+echo "host    replication    ${REPLICATIONUSER}    127.0.0.1/32    trust" >>${HBA}
