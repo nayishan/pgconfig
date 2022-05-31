@@ -53,22 +53,3 @@ make world |tee ${KBLOG}/compile.log
 echo "####################################################install#######################################"
 rm -rf ${KBSLAVEHOME}/*
 make install-world
-
-#modify configure
-CONF=${KBSLAVEHOME}/data/postgresql.conf
-cp ${KBSLAVEHOME}/data/postgresql.conf.sample ${KBSLAVEHOME}/data/postgresql.conf
-echo "hot_standby=on" >>${CONF}
-echo "max_standby_streaming_delay=30s">>${CONF}
-echo "wal_receiver_status_interval=10s" >>${CONFG}
-echo "hot_standby_feedback=on" >>${CONF}
-echo "max_connections=1000" >>${CONF}
-
-#create recovery.signal
-RECOVERY=${KBSLAVEHOME}/data/recovery.signal
-touch ${RECOVERY}
-echo "recovery_target_timeline = 'latest'" >>${RECOVERY}
-echo "primary_conninfo = 'host=10.0.23.199 port=5432 user=data_backup password=123456'" >>${RECOVERY}
-
-#create standby.signal
-STANDBY=${KBSLAVEHOME}/data/standby.signal
-echo "standby_mode = on" >> ${STANDBY}

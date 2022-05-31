@@ -33,7 +33,7 @@ userBin="${basePath}/pgconfig"
 
 pgKeyWord=("KBHOME" "PGHOME" "PGSLAVEHOME" "KBSLAVEHOME" "KBDATA" "PGDATA" "PGSLAVEDATA" "KBSLAVEDATA"\
 		"KBMANPATH" "PGMANPATH" "LANG" "DATE" "KBPORT" "PGPORT" "PGSLAVEPORT" "KBSLAVEPORT"\
-		"KBHOST" "PGHOST" "PGSLAVEHOST" "KBSLAVEHOST" "KBUSER" "PGUSER" "REPLICATIONUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG"\
+		"KBHOST" "PGHOST" "PGSLAVEHOST" "KBSLAVEHOST" "KBUSER" "PGUSER" "REPLICATIONUSER" "KBCODE" "PGCODE" "KBLOG" "PGLOG" "SLOTNAME"\
 		"GOROOT" "GOPATH" "GO111MODULE" "setproxy" "unsetproxy" "ls" "mycloud")
 #osKeyWord=("LD_LIBRARY_PATH" "PATH")
 
@@ -95,6 +95,7 @@ echo "export PGCODE=${pgCode}" >>${bashrc}
 
 echo "export KBLOG=${kbLog}" >>${bashrc}
 echo "export PGLOG=${pgLog}" >>${bashrc}
+echo "export SLOTNAME=\"slot1\"" >>${bashrc}
 
 #add oskey
 #for keyWord2 in ${osKeyWord[@]}

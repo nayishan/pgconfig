@@ -16,8 +16,8 @@ if [ ! -d $KBHOME ]; then
         echo "no HOME exist"
         exit 1
 fi
-
-${KBHOME}/bin/initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -W -m oracle ${extra}
+set -e
+${KBHOME}/bin/initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -W -m oracle -A trust ${extra}
 
 # set log open
 CONF=${KBDATA}/postgresql.conf

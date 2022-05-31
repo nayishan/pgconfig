@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
-${KBSLAVEHOME}/bin/pg_basebackup -h ${KBHOST} -p ${KBPORT} -U ${REPLICATIONUSER} -F p -P -D ${KBSLAVEDATA}
+${KBSLAVEHOME}/bin/pg_basebackup -h ${KBHOST} -p ${KBPORT} -U ${REPLICATIONUSER} -F p -P -D ${KBSLAVEDATA} -R -S ${SLOTNAME}
 
 CONF=${KBSLAVEHOME}/data/postgresql.conf
-cp ${KBSLAVEHOME}/data/postgresql.auto.conf ${KBSLAVEHOME}/data/postgresql.conf
+AUTOCONF=${KBSLAVEHOME}/data/postgresql.auto.conf
+#cp ${KBSLAVEHOME}/data/postgresql.auto.conf ${KBSLAVEHOME}/data/postgresql.conf
 # set log open
 echo "logging_collector = on">>${CONF}
 echo "log_directory = 'log'" >>${CONF}
@@ -15,6 +16,9 @@ echo "hot_standby_feedback=on" >>${CONF}
 echo "max_connections=1000" >>${CONF}
 #add max_prepared_transactions
 echo "max_prepared_transactions=10" >>${CONF}
+
+#modify app name
+sed -i "s#kingbase_\*+_++#$SLOTNAME#" ${AUTOCONF}
 
 # #create recovery.signal
 # RECOVERY=${KBSLAVEHOME}/data/recovery.signal
