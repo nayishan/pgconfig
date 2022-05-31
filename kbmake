@@ -43,7 +43,7 @@ set -e
 echo "#################################################configure#######################################"
 
 cd ${KBCODE}
-./configure --prefix=${KBHOME} --with-zlib --enable-nls --enable-integer-datetimes --with-openssl --enable-cassert --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -DKingbaseES' --with-icu ${extra} |tee ${KBLOG}/configure.out
+./configure --prefix=${KBHOME} --with-zlib --enable-nls --enable-integer-datetimes --with-openssl --with-libxml --with-uuid=e2fs --enable-debug CFLAGS='-O0 -DKingbaseES' --with-icu ${extra} |tee ${KBLOG}/configure.out
 
 #make
 echo "#################################################make ##########################################"
