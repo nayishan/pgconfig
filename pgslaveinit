@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-${PGSLAVEHOME}/bin/pg_basebackup -h ${PGHOST} -p ${PGPORT} -U ${REPLICATIONUSER} -F p -X stream -P -R -D ${PGSLAVEDATA}
+${PGSLAVEHOME}/bin/pg_basebackup -h ${PGHOST} -p ${PGPORT} -U ${REPLICATIONUSER} -F p -X stream -P -R -S ${SLOTNAME} -D ${PGSLAVEDATA} 
 
 CONF=${PGSLAVEHOME}/data/postgresql.conf
 cp ${PGSLAVEHOME}/data/postgresql.auto.conf ${PGSLAVEHOME}/data/postgresql.conf

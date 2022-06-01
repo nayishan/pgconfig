@@ -1,3 +1,4 @@
 #!/bin/bash
 ${PGHOME}/bin/createdb -p ${PGPORT}
 ${PGHOME}/bin/psql -p ${PGPORT} -c "create role ${REPLICATIONUSER} login replication encrypted password '123456';"
+${PGHOME}/bin/psql -p ${PGPORT} -c "select pg_create_physical_replication_slot('${SLOTNAME}');"
