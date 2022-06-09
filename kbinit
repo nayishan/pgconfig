@@ -17,7 +17,7 @@ if [ ! -d $KBHOME ]; then
         exit 1
 fi
 set -e
-${KBHOME}/bin/initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -W -m oracle -A trust ${extra}
+${KBHOME}/bin/initdb -D $KBDATA -E UTF8 --locale=C -U $KBUSER -m oracle -A trust ${extra}
 
 # set log open
 CONF=${KBDATA}/postgresql.conf

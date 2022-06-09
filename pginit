@@ -16,7 +16,7 @@ if [ ! -d $PGHOME ]; then
         exit 1
 fi
 
-${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -W  ${extra}
+${PGHOME}/bin/initdb -D $PGDATA -E UTF8 --locale=C -U $PGUSER -A trust  ${extra}
 
 # set log open
 CONF=${PGDATA}/postgresql.conf
